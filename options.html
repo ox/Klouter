@@ -1,0 +1,45 @@
+<html>
+	<head>
+		<title>Klouter Options</title>
+		
+		<style>
+			body {
+				font-family: sans-serif;
+				font-size: 14px;
+			}
+			input {
+				border: none;
+				border-bottom: 1px dashed #aaa;
+			}
+		</style>
+		
+		<script language="javascript" src="klout_op.js"></script>
+		<script language="javascript">
+			function load_options() {
+				username = localStorage.klouter_username || "";
+				duration = localStorage.klouter_duration || 300000;
+				
+				document.getElementById("username").value = username;
+				document.getElementById("duration").value = duration/60000; //ms to min
+			}
+			
+			function save_options() {
+				localStorage.klouter_username = document.getElementById("username").value;
+				localStorage.klouter_duration = document.getElementById("duration").value * 60000; //min to ms
+				chrome.extension.sendRequest({username_updated:true},function(response) {
+					window.close();
+				});
+			}
+		</script>
+	</head>
+	
+	<body onload="load_options()">
+		<div style="width:240px;margin-left:auto;margin-right:auto;margin-top:25%">
+			<a href="http://klout.com" target="_top" title="Klout Powered"><img src="http://developer.klout.com/files/klout-powered-color.png" alt="Klout Powered" border="0" /></a><br/>
+			<input id="username" type="textbox" placeholder="your klout username"/>
+			<input type="submit" value="save" onclick="save_options()"/><br/>
+			Check every<input id="duration" type="textbox" size=3/>minutes
+			
+		</div>
+	</body>
+</html>

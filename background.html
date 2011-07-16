@@ -1,0 +1,50 @@
+<head>
+	<style>
+		@font-face {
+		  font-family: "Silkscreen"
+		  src: url(slkscre.ttf);
+		}
+	</style>
+	<script src="klout_op.js"></script>
+	<script language="javascript">
+		var interval;
+		
+		function launch() {		
+			//get rid of the old interval
+			clearInterval(interval);
+			
+			//blank out the score box
+			score = null;
+			drawKloutScore();
+			
+			//lets try a run
+			run = true;
+			
+			//initial run so we have data before the interval begins
+			op();
+			
+			//start new interval
+			interval = setInterval(op,localStorage.klout_duration || 300000); // 5mintues inteval default
+		}
+		
+		document.addEventListener('DOMContentLoaded', function() {
+			drawKloutScore();
+			if(localStorage.klouter_username && localStorage.klouter_username != "") {
+				launch();
+			}
+		});
+		
+		chrome.extension.onRequest.addListener(function(request, sender, sendResponse) {
+			if(request.username_updated) {
+				sendResponse({farewell: "goodbye, and thanks for all the fish!"});
+				launch();
+			}
+		});
+		
+		chrome.browserAction.onClicked.addListener(function(tab) {
+			chrome.tabs.create({url:"options.html"});
+		});
+	</script>
+</head>
+
+<canvas id="canvas" width="19" height="19"/>

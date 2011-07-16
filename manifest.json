@@ -1,0 +1,14 @@
+{
+	"name": "Klouter",
+	"version": "0.5.5",
+  "description": "An extension which allows you to monitor your Klout score as you influence the web.",
+	"background_page": "background.html",
+	"options_page": "options.html",
+	"browser_action": {
+    "default_title": "Klouter"
+  },
+  "permissions": [
+    "http://api.klout.com/",
+		"tabs"
+  ]
+}
