@@ -6,7 +6,7 @@ var run = false;
 function getKloutScore() {
 	username = localStorage.klouter_username;
 	if(username && username != "") {
-		req.open("GET","http://api.klout.com/1/klout.json?key=edzf6n2te4dzdqy6br5d9563&users="+username, true);
+		req.open("GET","http://api.klout.com/1/klout.json?key=**API_KEY**&users="+username, true);
 		req.onreadystatechange = function (aEvt) {
       if (req.readyState == 4) {
          if(req.status == 200) {
